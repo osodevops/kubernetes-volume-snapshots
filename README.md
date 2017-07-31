@@ -26,7 +26,7 @@ How it works
 Usage
 ------------
 
-####External usage (non Docker image)
+#### External usage (non Docker image)
 * Install dependencies
 * Ensure ``$HOME/.aws/`` & ``$HOME/.kube/`` store the appropriate credentials to your environment.
 * From command line, run:
@@ -38,8 +38,8 @@ Usage
     * Launch the script:
         * ``python -m kubernetes-pvc-snapshot``
 
-####Internal (within the K8 cluster) usage
-######Helm Deployment (via CLI)
+#### Internal (within the K8 cluster) usage
+###### Helm Deployment (via CLI)
 * Ensure aws 'secret' has been created on the cluster (see above _How it works: running within Kubernetes cluster_)
 * in *./templates/helm/kubernetes-pvc-snapshot/values.yaml*, update the following values:
     * env.name_space
@@ -50,7 +50,7 @@ Usage
     
 
 
-######Standard K8 Deployment
+###### Standard K8 Deployment
 
 To create a standard Kubernetes 'job':
 
