@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pvc-backup
+spec:
+  template:
+    metadata:
+      name: pvc-backup
+    spec:
+      volumes:
+      - name: aws-credentials
+        secret:
+          secretName: aws-key-secret
+      containers:
+      - name: pvc-backup
+        image: boysherman/kubernetes-snapshots
+        env:
+          - name: KUBERNETES_SERVICE_HOST
+            value: "kubernetes.default.svc.cluster.local"
+          - name: K8_NAMESPACE
+            value: ""
+          - name: K8_APP_NAME
+            value: ""
+        command: ["python", "-m", kube_volume_snapshots]
+#        command: ["sleep", "9999999999999"]
+        volumeMounts:
+          - name: aws-credentials
+            readOnly: true
+            mountPath: "/root/.aws"
+      restartPolicy: Never
