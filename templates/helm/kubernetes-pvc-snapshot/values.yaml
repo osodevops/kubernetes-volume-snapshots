@@ -1,0 +1,20 @@
+# Default values for atlas-cassandra.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  repository: boysherman/kubernetes-snapshots
+  tag: "latest"
+  pullPolicy: IfNotPresent
+service:
+  name: kubernetes-aws-snapshot
+  type: ClusterIP
+env:
+  service_host: kubernetes.default.svc.cluster.local
+  name_space: dev
+  app_name: dev
+volume_mount:
+  name: aws-credentials
+  read_only: true
+mount_path: /root/.aws
+secret_name: aws-key-secret
+restart_policy: Never

@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
-from kubernetes import client, config
 from kube_volume_snapshots import connection
 import os
 import time
 import boto3
-import json
+
 
 NAMESPACE = os.environ.data['K8_NAMESPACE']
 APP_NAME = os.environ.data['K8_APP_NAME']
@@ -87,7 +86,6 @@ def ebs_snapshot( ebs_params ):
     snapshot_id = list()
     snapshot_id.append(snapshot.id)
 
-    # TODO: Get rid of any spaces as they make it a pain.
     tags = [
         {
             "Key": "Name",

@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  template:
+    metadata:
+      name: "{{ .Chart.Name }}"
+    spec:
+      volumes:
+      - name: "{{ .Values.volume_mount.name }}"
+        secret:
+          secretName: "{{ .Values.secret_name }}"
+      containers:
+      - name: "{{ .Chart.Name }}"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        env:
+          - name: KUBERNETES_SERVICE_HOST
+            value: "{{ .Values.env.service_host }}"
+          - name: K8_NAMESPACE
+            value: "{{ .Values.env.name_space }}"
+          - name: K8_APP_NAME
+            value: "{{ .Values.env.app_name }}"
+        volumeMounts:
+          - name: "{{ .Values.volume_mount.name }}"
+            readOnly: {{ .Values.volume_mount.read_only }}
+            mountPath: "{{ .Values.mount_path }}"
+      restartPolicy: "{{ .Values.restart_policy }}"
