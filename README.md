@@ -12,10 +12,10 @@ Presently, only AWS is supported.
 How it works
 ------------
 
-####Running externally (non Docker image)
+#### Running externally (non Docker image)
 * The script will authenticate with AWS and K8 by looking for ``~/.aws/credentials`` and ``~/.kube/config`` respectively.
 
-####Running within Kubernetes cluster
+#### Running within Kubernetes cluster
 * The script will authenticate with *Kubernetes* by using the local service account token attached to the pod that is deployed.  See  [Accessing API from a Pod](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod)
 * The script will authenticate with AWS via a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) which will mount a ``config`` and ``credentials`` file to ``/root/.aws``  **For this, a secret will have to already of been created.**  One method of creating this secret would be via _Kubectl_: 
 
