@@ -8,7 +8,6 @@ After being seeded with a variable ``namespace`` and ``app name`` (set as enviro
 
 Presently, only AWS is supported.
 
-
 How it works
 ------------
 
@@ -21,14 +20,14 @@ How it works
 
 > kubectl create secret --namespace=dev generic aws-key-secret --from-file=config=$HOME/.aws/config --from-file=credentials=$HOME/.aws/credentials
 
-
-
 Usage
 ------------
 
 #### External usage (non Docker image)
-* Install dependencies
 * Ensure ``$HOME/.aws/`` & ``$HOME/.kube/`` store the appropriate credentials to your environment.
+
+###### Running manually with Python (2.7)
+
 * From command line, run:
     * ``export $K8_NAMESPACE=<<your namespace>>``
     * ``export $K8_APP_NAME=<<the application name>>``
@@ -37,6 +36,12 @@ Usage
         * ``pip install -r ./requirements.txt``
     * Launch the script:
         * ``python -m kubernetes-pvc-snapshot``
+
+###### Running via Docker image
+
+* Use the following command to run the docker image from your local environment:
+
+> docker run -e K8_NAMESPACE="your-namespace" -e K8_APP_NAME="your-app-name" -v $HOME/.kube:/root/.kube/ -v $HOME/.aws:/root/.aws boysherman/kubernetes-snapshots
 
 #### Internal (within the K8 cluster) usage
 ###### Helm Deployment (via CLI)
@@ -48,8 +53,6 @@ Usage
 * Package the helm chart.  From within *./templates/helm*, run: ``helm package kubernetes-pvc-snapshot``
 * Deploy the helm chart.  ``helm install kubernetes-pvc-snapshot``
     
-
-
 ###### Standard K8 Deployment
 
 To create a standard Kubernetes 'job':
