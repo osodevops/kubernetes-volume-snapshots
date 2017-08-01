@@ -1,4 +1,4 @@
-from kube_volume_snapshots import connection
+import connection
 import os
 import time
 
