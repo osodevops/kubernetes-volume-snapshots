@@ -12,6 +12,9 @@ class Connection:
         self.s3_client = self.aws_s3_client()
         self.s3_resource = self.aws_s3_resource()
         self.e2_resource = self.aws_ec2_resource()
+        self.aws_region_name = self.aws_region_name()
+        self.aws_account_id = self.aws_account_id()
+
 
     def kubernetes_client(self):
         # K8 Clients
@@ -36,4 +39,12 @@ class Connection:
     def aws_ec2_resource(self):
         ec2_resource = boto3.resource('ec2')
         return ec2_resource
+
+    def aws_region_name(self):
+        region_name = boto3.session.Session().region_name
+        return region_name
+
+    def aws_account_id(self):
+        aws_account_id = boto3.client('sts').get_caller_identity()['Account']
+        return aws_account_id
 
